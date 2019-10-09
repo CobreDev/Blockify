@@ -1,0 +1,9 @@
+{
+    entry = {
+	bundle = BlockifyPrefs;
+	cell = PSLinkCell;
+	detail = BlockifyPrefsListController;
+	isController = 1;
+	label = Blockify;
+    };
+}

@@ -1,0 +1,9 @@
+Package: com.cooper.blockify
+Name: Blockify
+Depends: mobilesubstrate, ws.hbang.common (>= 1.11), firmware (>=11.0)
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Blocks certain words
+Maintainer: mac-user669 <cooper@cooperhull.com>
+Author: mac-user669 <cooper@cooperhull.com>
+Section: Tweaks
