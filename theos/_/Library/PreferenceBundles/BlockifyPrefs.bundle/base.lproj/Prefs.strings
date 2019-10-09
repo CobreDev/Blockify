@@ -1,0 +1,19 @@
+{
+  "ENABLED" = "Enabled";
+  "STYLE" = "Style";
+
+  "COMPONENTS" = "Components";
+  "NOTIFICATIONS" = "Notifications";
+  "EVERYWHERE" = "Everywhere";
+  "SETTINGS" = "Settings";
+  "ICON_LABELS" = "Icon Labels";
+
+  "RESPRING" = "Respring";
+  "ARE_YOU_SURE_TO_RESET_PREFS" = "Are you sure?";
+  "OK" = "Ok";
+  "CANCEL" = "No";
+  "RESET_PREFS" = "Reset Preferences";
+  "SOURCE_CODE" = "Source Code";
+  "DONATE_TO_NEPETA" = "Donate to me";
+  "SUPPORT_ME" = "Donate";
+}
