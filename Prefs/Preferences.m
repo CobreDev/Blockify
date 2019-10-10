@@ -40,15 +40,15 @@
 }
 
 - (void)testNotifications:(id)sender {
-    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"com.cooper.bBlockifylockify/TestNotifications", nil, nil, true);
+    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"com.cooper.blockify/TestNotifications", nil, nil, true);
 }
 
 - (void)testBanner:(id)sender {
-    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"com.cooper.bBlockifylockify/TestBanner", nil, nil, true);
+    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"com.cooper.blockify/TestBanner", nil, nil, true);
 }
 
 - (void)resetPrefs:(id)sender {
-    HBPreferences *prefs = [[HBPreferences alloc] initWithIdentifier:@"com.cooper.bBlockifylockify"];
+    HBPreferences *prefs = [[HBPreferences alloc] initWithIdentifier:@"com.cooper.blockify"];
     [prefs removeAllObjects];
     
     [self respring:sender];
@@ -57,7 +57,7 @@
 - (void)respring:(id)sender {
     NSTask *t = [[[NSTask alloc] init] autorelease];
     [t setLaunchPath:@"/usr/bin/killall"];
-    [t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+    [t setArguments:[NSArray arrayWithObjects:@"SpringBoard", nil]];
     [t launch];
 }
 @end

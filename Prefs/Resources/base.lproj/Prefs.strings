@@ -9,11 +9,11 @@
   "ICON_LABELS" = "Icon Labels";
 
   "RESPRING" = "Respring";
-  "ARE_YOU_SURE_TO_RESET_PREFS" = "Are you sure?";
-  "OK" = "Ok";
-  "CANCEL" = "No";
-  "RESET_PREFS" = "Reset Preferences";
-  "SOURCE_CODE" = "Source Code";
-  "DONATE_TO_NEPETA" = "Donate to me";
-  "SUPPORT_ME" = "Donate";
+  "ARE_YOU_SURE_TO_RESET_PREFS" = "Are You Sure?";
+  "OK" = "Yes";
+  "CANCEL" = "Cancel";
+  "RESET_PREFS" = "Reset Settings";
+  "SOURCE_CODE" = "github.com/mac-user669/Blockify";
+  "DONATE_TO_ME" = "Donate";
+  "SUPPORT_ME" = "paypal.me/macuser669";
 }

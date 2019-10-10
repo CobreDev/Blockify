@@ -1,74 +1,29 @@
 #import <Cephei/HBPreferences.h>
 
 static NSDictionary *prefixes = @{
-    @"furry": @[@"OwO ", @"H-hewwo?? ", @"Huohhhh. ", @"Haiiii! ", @"UwU ", @"OWO ", @"HIIII! ", @"<3 "],
-    @"pirate": @[@"Arr, matey! ", @"Arrr! ", @"Ahoy. ", @"Yo ho ho! "],
-    @"nepeta": @[@":33 < "]
+    @"furry": @[@"", @"", @""]
 };
 
 static NSDictionary *suffixes = @{
-    @"furry": @[@" :3", @" UwU", @" ʕʘ‿ʘʔ", @" >_>", @" ^_^", @"..", @" Huoh.", @" ^-^", @" ;_;", @" ;-;", @" xD", @" x3", @" :D", @" :P", @" ;3", @" XDDD", @", fwendo", @" ㅇㅅㅇ", @" (人◕ω◕)", @"（＾ｖ＾）", @" Sigh.", @" >_<"]
+    @"furry": @[@"", @"", @""]
 };
 
 static NSDictionary *replacement = @{
-    @"furry": @{
-        @"r": @"w",
-        @"l": @"w",
-        @"R": @"W",
-        @"L": @"W",
-        @"ow": @"OwO",
-        @"no": @"nu",
-        @"has": @"haz",
-        @"have": @"haz",
-        @"you": @"uu",
-        @"the ": @"da ",
+
+    @"alternate": @{
+        @"fuck": @"fork",
+        @"ass": @"ask",
+        @"damn": @"dam",
+        @"shit": @"shot",
+        @"fucking": @"forking",
+
     },
-    @"leet": @{
-        @"cks": @"x",
-        @"ck": @"x",
-        @"er": @"or",
-        @"and": @"&",
-        @"anned": @"&",
-        @"porn": @"pr0n",
-        @"lol": @"lulz",
-        @"the ": @"teh ",
-        @"a": @"4",
-        @"o": @"0",
-        @"e": @"3",
-        @"b": @"8",
-        @"s": @"5",
-        @"z": @"2",
-        @"l": @"1",
-        @"t": @"7",
-    },
-    @"pirate": @{
-        @"this": @"'tis",
-        @"g ": @"' ",
-        @"you": @"ye",
-        @"You": @"Ye",
-        @"Hello": @"Ahoy!",
-        @"Hey": @"Ahoy!",
-        @"There": @"Thar",
-        @"Is ": @"Be ",
-        @"hello": @"ahoy!",
-        @"there": @"thar",
-        @" is ": @" be ",
-        @" is.": @" be.",
-        @" is?": @" is?",
-        @" is!": @" is!",
-        @"What": @"Wha",
-        @"what": @"wha",
-    },
-    @"nepeta": @{
-        @"awful": @"pawful",
-        @"per": @"purr",
-        @"por": @"purr",
-        @"fer": @"fur",
-        @"pau": @"paw",
-        @"po": @"paw",
-        @"best": @"bestest",
-        @"ee": @"33",
-        @"EE": @"33",
+    @"dashes": @{
+        @"fuck": @"f---",
+        @"ass": @"a--",
+        @"damn": @"d---",
+        @"shit": @"sh--",
+        @"fucking": @"f---ing",
     }
 };
 
@@ -96,7 +51,7 @@ NSString *owoify (NSString *text, bool replacementOnly) {
     return temp;
 }
 
-%group OwONotifications
+%group BlockifyNotifications
 
 %hook NCNotificationContentView
 
@@ -122,7 +77,7 @@ NSString *owoify (NSString *text, bool replacementOnly) {
 
 %end
 
-%group OwOEverywhere
+%group BlockifyEverywhere
 
 %hook UILabel
 
@@ -137,9 +92,23 @@ NSString *owoify (NSString *text, bool replacementOnly) {
 
 %end
 
+%hook T1StatusAttributedTextView
+
+-(void)setText:(NSString *)orig {
+    if (!orig) {
+        %orig(orig);
+        return;
+    }
+    
+    %orig(owoify(orig, true));
+}
+
 %end
 
-%group OwOIconLabels
+
+%end
+
+%group BlockifyIconLabels
 
 %hook SBIconLabelImageParameters
 
@@ -151,7 +120,7 @@ NSString *owoify (NSString *text, bool replacementOnly) {
 
 %end
 
-%group OwOSettings
+%group BlockifySettings
 
 %hook PSSpecifier
 
@@ -168,8 +137,6 @@ NSString *owoify (NSString *text, bool replacementOnly) {
     NSString *processName = [NSProcessInfo processInfo].processName;
     bool isSpringboard = [@"SpringBoard" isEqualToString:processName];
 
-    // Someone smarter than me invented this.
-    // https://www.reddit.com/r/jailbreak/comments/4yz5v5/questionremote_messages_not_enabling/d6rlh88/
     bool shouldLoad = NO;
     NSArray *args = [[NSClassFromString(@"NSProcessInfo") processInfo] arguments];
     NSUInteger count = args.count;
@@ -192,26 +159,26 @@ NSString *owoify (NSString *text, bool replacementOnly) {
 
     if (!shouldLoad) return;
 
-    HBPreferences *file = [[HBPreferences alloc] initWithIdentifier:@"me.nepeta.owo"];
+    HBPreferences *file = [[HBPreferences alloc] initWithIdentifier:@"com.cooper.blockify"];
 
     if ([([file objectForKey:@"Enabled"] ?: @(YES)) boolValue]) {
-        mode = [file objectForKey:@"Style"] ?: @"furry";
+        mode = [file objectForKey:@"Style"] ?: @"dashes";
 
-        if ([([file objectForKey:@"EnabledEverywhere"] ?: @(NO)) boolValue]) {
-            %init(OwOEverywhere);
+        if ([([file objectForKey:@"EnabledEverywhere"] ?: @(YES)) boolValue]) {
+            %init(BlockifyEverywhere);
         }
 
-        if ([([file objectForKey:@"EnabledSettings"] ?: @(NO)) boolValue]) {
-            %init(OwOSettings);
+        if ([([file objectForKey:@"EnabledSettings"] ?: @(YES)) boolValue]) {
+            %init(BlockifySettings);
         }
 
         if (isSpringboard) {
             if ([([file objectForKey:@"EnabledNotifications"] ?: @(YES)) boolValue]) {
-                %init(OwONotifications);
+                %init(BlockifyNotifications);
             }
 
-            if ([([file objectForKey:@"EnabledIconLabels"] ?: @(NO)) boolValue]) {
-                %init(OwOIconLabels);
+            if ([([file objectForKey:@"EnabledIconLabels"] ?: @(YES)) boolValue]) {
+                %init(BlockifyIconLabels);
             }
         }
     }
